@@ -35,8 +35,7 @@
 
   "scripts": [
     "module/helpers/templates.mjs",
-    "generator/bpnb-generator.mjs",
-    "module/helpers/helpers.mjs"
+    "generator/bpnb-generator.mjs"
   ],
 
   "styles": [
