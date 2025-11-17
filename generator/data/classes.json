@@ -1,0 +1,7 @@
+[
+  { "id": "deserter", "name": "Наёмный дезертир" },
+  { "id": "bounty_hunter", "name": "Охотник за головами" },
+  { "id": "witch", "name": "Ведьма" },
+  { "id": "adventurer", "name": "Авантюрист" },
+  { "id": "practitioner", "name": "Практик" }
+]

@@ -1,0 +1,66 @@
+{
+  "id": "bpnb-borg-ru",
+  "title": "Черный порох & Сера (RU)",
+  "description": "Русская локализация системы Black Powder & Brimstone для Foundry VTT",
+  "authors": [
+    {
+      "name": "wargul666-ctrl",
+      "discord": "wargul666"
+    }
+  ],
+  "url": "https://github.com/wargul666-ctrl/BPNB_RU",
+  "license": "LICENSE.txt",
+  "readme": "README.md",
+  "bugs": "https://github.com/wargul666-ctrl/BPNB_RU/issues",
+  "changelog": "CHANGELOG.md",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/bpnb-borg-ru/assets/screen.png",
+      "thumbnail": "systems/bpnb-borg-ru/assets/screen.png"
+    }
+  ],
+  "version": "0.8.1",
+  "compatibility": {
+    "minimum": 13,
+    "verified": "13.348"
+  },
+  "esmodules": [
+    "module/bpnb_borg-ru.mjs",
+    "generator/bpnb-generator.mjs"
+  ],
+  "styles": [
+    "css/bpnb_borg.css"
+  ],
+  "languages": [
+    {
+      "lang": "ru",
+      "name": "Русский",
+      "path": "lang/ru.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+  "socket": false,
+  "manifest": "https://github.com/wargul666-ctrl/BPNB_RU/releases/latest/download/system.json",
+  "download": "https://github.com/wargul666-ctrl/BPNB_RU/releases/download/v0.8.1/system.zip",
+  "background": "systems/bpnb-borg-ru/assets/screen.png",
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "power",
+  "flags": {
+    "allowBugReporter": true
+  },
+  "relationships": {
+    "systems": [],
+    "requires": []
+  },
+  "protected": false,
+  "coreTranslation": false
+}

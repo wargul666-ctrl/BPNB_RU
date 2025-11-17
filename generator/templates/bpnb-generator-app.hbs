@@ -1,0 +1,65 @@
+<div class="bpnb-generator">
+  <h2>Генератор персонажей — Чёрный Порох & Сера</h2>
+
+  <div class="bpnb-fields">
+    <label>
+      Архетип (класс):
+      <select id="bpnb-class-select">
+        {{#each classes}}
+          <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </label>
+
+    <label>
+      Подкласс:
+      <select id="bpnb-subclass-select">
+        {{!-- наполняется через JS --}}
+      </select>
+    </label>
+  </div>
+
+  <div class="bpnb-buttons">
+    <button id="bpnb-random"><i class="fas fa-dice-d20"></i> Случайно</button>
+    <button id="bpnb-create"><i class="fas fa-user-plus"></i> Создать персонажа</button>
+  </div>
+
+  <hr/>
+
+  <div id="bpnb-preview" class="bpnb-preview">
+    Выберите класс или нажмите "Случайно"
+  </div>
+</div>
+
+<style>
+.bpnb-generator { 
+  padding: 10px; 
+  font-family: "Segoe UI", sans-serif; 
+}
+.bpnb-generator h2 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+.bpnb-fields label {
+  display: block;
+  margin-bottom: 6px;
+}
+.bpnb-fields select {
+  width: 100%;
+  padding: 4px;
+  margin-top: 2px;
+}
+.bpnb-buttons {
+  margin-top: 10px;
+}
+.bpnb-buttons button {
+  margin-right: 8px;
+}
+.bpnb-preview {
+  border: 1px solid #444;
+  margin-top: 10px;
+  padding: 6px;
+  min-height: 50px;
+  white-space: pre-line;
+}
+</style>

@@ -1,0 +1,50 @@
+<form class="roll-card attack-roll-card">
+  <div class="card-title">
+    {{label}}
+  </div>
+  <div class="roll-result">
+    <div class="roll-title">
+      <span
+        >{{localize 'BPNB_BORG.Labels.ATTACK'}}: {{attackFormula}} {{localize 'BPNB_BORG.Labels.VS'}}
+        {{localize 'BPNB_BORG.Labels.DR'}} {{attackDR}}</span
+      >
+    </div>
+    <div class="roll-row">
+      <span>{{xtotal attackRoll}}</span>
+    </div>
+  </div>
+  <div class="outcome-row">
+    <span>{{attackOutcome}}</span>
+  </div>
+  
+{{#if damageRoll}}
+  <div class="roll-result">
+    <div class="roll-title">
+      <span>{{localize 'BPNB_BORG.Labels.Damage'}}: {{damageRoll._formula}}</span>
+    </div>
+    <div class="roll-row">
+      <span>{{damageResult}}</span>
+    </div>
+  </div>
+  {{/if}}
+{{#if armorRoll}}
+  <div class="roll-result">
+    <div class="roll-title">
+      <span>{{localize 'BPNB_BORG.Labels.Armor'}}: {{armorRoll._formula}}</span>
+    </div>
+    <div class="roll-row">
+      <span>{{xtotal armorRoll}}</span>
+    </div>
+  </div>
+  {{/if}}
+{{#if isHit}}
+  <div class="roll-result">
+    <div class="roll-title">
+      <span>{{localize 'BPNB_BORG.Labels.Damage_Done'}}</span>
+    </div>
+    <div class="roll-row">
+      <span>{{totalDamage}}</span>
+    </div>
+  </div>
+  {{/if}}
+</form>

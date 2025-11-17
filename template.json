@@ -1,0 +1,116 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+
+    "templates": {
+      "base": {
+        "health": {
+          "value": 10,
+          "min": 0,
+          "max": 10
+        },
+        "devils_luck": {
+          "value": 0,
+          "min": 0,
+          "max": 10
+        },
+        "spell_cast_amount": {
+          "value": 0,
+          "min": 0,
+          "max": 0
+        },
+        "biography": "",
+        "gp": 0
+      }
+    },
+
+    "character": {
+      "templates": ["base"],
+      "attributes": {
+        "level": {
+          "value": 1
+        }
+      },
+      "class_name": "",
+      "subclass": "",
+      "madness": 0,
+      "abilities": {
+        "str": { "value": 0 },
+        "agl": { "value": 0 },
+        "prs": { "value": 0 },
+        "tgh": { "value": 0 }
+      },
+      "sheet": {
+        "template": "systems/bpnb-borg-ru/templates/actor/actor-character-sheet.hbs"
+      }
+    },
+
+    "npc": {
+      "templates": ["base"],
+      "morale": 0,
+      "armour": "",
+      "attack": "",
+      "captured_gp": 0,
+      "dead_gp": 0,
+      "sheet": {
+        "template": "systems/bpnb-borg-ru/templates/actor/actor-npc-sheet.hbs"
+      }
+    }
+  },
+
+  "Item": {
+    "types": ["item", "feature", "spell", "weapon", "armour"],
+
+    "templates": {
+      "base": {
+        "description": "",
+        "gp": 0
+      }
+    },
+
+    "item": {
+      "templates": ["base"],
+      "quantity": 1,
+      "weight": 0,
+      "formula": "d20 + @str.mod + ceil(@lvl / 2)",
+      "sheet": {
+        "template": "systems/bpnb-borg-ru/templates/item/item-item-sheet.hbs"
+      }
+    },
+
+    "weapon": {
+      "templates": ["base"],
+      "ranged": false,
+      "needs_ammo": false,
+      "ammunition": 0,
+      "damage": "1d4",
+      "sheet": {
+        "template": "systems/bpnb-borg-ru/templates/item/item-weapon-sheet.hbs"
+      }
+    },
+
+    "feature": {
+      "templates": ["base"],
+      "sheet": {
+        "template": "systems/bpnb-borg-ru/templates/item/item-feature-sheet.hbs"
+      }
+    },
+
+    "spell": {
+      "templates": ["base"],
+      "spellLevel": 1,
+      "sheet": {
+        "template": "systems/bpnb-borg-ru/templates/item/item-spell-sheet.hbs"
+      }
+    },
+
+    "armour": {
+      "templates": ["base"],
+      "level": 1,
+      "dice": "d2",
+      "sheet": {
+        "template": "systems/bpnb-borg-ru/templates/item/item-armour-sheet.hbs"
+      }
+    }
+  }
+}

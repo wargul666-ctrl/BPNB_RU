@@ -1,0 +1,29 @@
+<form class="roll-card attack-roll-card">
+  <div class="card-title">
+    {{label}}
+  </div>
+  <div class="roll-result">
+    <div class="roll-title">
+      <span
+        >{{localize 'BPNB_BORG.Labels.Defend'}}: {{defendRoll}} {{localize 'BPNB_BORG.Labels.VS'}}
+        {{localize 'BPNB_BORG.Labels.DR'}} {{defendDR}}</span
+      >
+    </div>
+    <div class="roll-row">
+      <span>{{xtotal defendRoll}}</span>
+    </div>
+  </div>
+  
+
+  <div class="roll-result">
+    <div class="roll-title">
+      <span>{{resultTitle}}</span>
+    </div>
+
+    {{#if resultBody}}
+    <div class="roll-row">
+      <span>{{resultBody}}</span>
+    </div>
+    {{/if}}
+  </div>
+</form>

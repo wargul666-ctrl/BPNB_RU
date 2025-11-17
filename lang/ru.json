@@ -1,0 +1,178 @@
+{
+  "EFFECT": {
+    "TabDuration": "Длительность",
+    "TabEffects": "Эффекты",
+    "TabActive": "Активные эффекты",
+    "TabInactive": "Неактивные эффекты",
+    "TabPassive": "Пассивные эффекты",
+    "AddEffect": "Добавить эффект",
+    "AddTemporary": "Добавить временный эффект",
+    "AddPassive": "Добавить пассивный эффект",
+    "Source": "Источник",
+    "Toggle": "Вкл/Выкл эффект",
+    "Temporary": "Временные эффекты",
+    "Passive": "Пассивные эффекты",
+    "Inactive": "Неактивные эффекты",
+    "Create": "Эффект"
+  },
+  "BPNB_BORG": {
+    "Name": "Название",
+    "DefendDR": "СЛ",
+    "Defend": "Защита",
+    "DefendRoll": "Бросок защиты",
+    "DefendArmour": "Броня",
+    "RollDialog": {
+      "Roll": "Бросить",
+      "Title": "Бросок"
+    },
+    "Labels": {
+      "DR": "СЛ",
+      "ATTACK": "Атака",
+      "VS": "против",
+      "Attack_Hit": "Попадание",
+      "Attack_Fumble": "Провал!",
+      "Attack_Miss": "Промах",
+      "Attack_Crit": "Критический удар!",
+      "Damage": "Урон",
+      "Armor": "Броня",
+      "Damage_Done": "Нанесённый урон",
+      "Defend": "Защита",
+      "Defend_Got_Hit": "Защита провалена!",
+      "Defend_Success": "Защита успешна!",
+      "Defend_Critical_Success": "Критический успех!",
+      "Defend_Critical_Success_Action": "Вы получаете бесплатную атаку по нападающему!",
+      "Defend_Fumble": "Провал!",
+      "Defend_Fumble_Action": "Вы получаете удвоенный урон, а ваша броня снижается на один уровень, пока не будет починена.",
+      "Morale": "Мораль",
+      "Attack": "Атака"
+    },
+    "Ability": {
+      "Str": { "long": "Сила", "abbr": "Сил" },
+      "Agl": { "long": "Ловкость", "abbr": "Лов" },
+      "Prs": { "long": "Харизма", "abbr": "Хар" },
+      "Tgh": { "long": "Стойкость", "abbr": "Стк" }
+    },
+    "SheetLabels": {
+      "Actor": "Лист персонажа BpnB Borg",
+      "Item": "Лист предмета BpnB Borg",
+      "Pain": "Боль",
+      "Description": "Описание",
+      "Spells": "Заклинания",
+      "Effects": "Эффекты"
+    },
+    "Item": {
+      "Name": "Название",
+      "Quantity": "Количество",
+      "Weight": "Вес",
+      "Gold": "Золото",
+      "Spell": {
+        "SpellLVL": "Заклинания уровня {level}",
+        "AddLVL": "Добавить ур. {level}",
+        "AddSpell": "Добавить заклинание",
+        "Spells": "Заклинания"
+      },
+      "Weapon": {
+        "Damage": "Урон",
+        "Type": "Тип",
+        "Ammo": "Боеприпасы",
+        "New": "Новое оружие",
+        "Weapon": "Оружие",
+        "Ranged": "Дальний бой",
+        "Melee": "Ближний бой",
+        "TwoHanded": "Двуручное",
+        "RollAttack": "Бросить атаку",
+        "RollDamage": "Бросить урон",
+        "AmmoLeft": "Осталось патронов",
+        "NeedsAmmo": "Требует боеприпасы",
+        "Ammunition": "Боеприпасы"
+      },
+      "Armour": {
+        "Tier": "Уровень",
+        "Dice": "Кость защиты",
+        "New": "Новая броня"
+      }
+    },
+    "Effect": {
+      "Temporary": "Временные эффекты",
+      "Passive": "Пассивные эффекты",
+      "Inactive": "Неактивные эффекты",
+      "Create": "Эффект",
+      "Source": "Источник"
+    },
+    "Health": "Здоровье",
+    "DevilsLuck": "Дьявольская Удача",
+    "SpellsPerDay": "Заклинаний в день",
+    "Class": "Класс",
+    "Gold": "Золото",
+    "Level": "Уровень",
+    "Madness": "Безумие",
+    "TabMain": "Основное",
+    "LongRest": "Долгий отдых",
+    "ShortRest": "Короткий отдых",
+    "Rest": {
+      "Short": "Короткий отдых",
+      "Long": "Долгий отдых"
+    },
+    "Weapons": "Оружие",
+    "Armour": "Броня",
+    "Items": "Предметы",
+    "Features": "Особенности",
+    "Tinn": "Патроны",
+    "Ammunition": "Боеприпасы",
+    "Tier": "Уровень",
+    "Dice": "Кость",
+    "AddWeapon": "Добавить оружие",
+    "AddArmour": "Добавить броню",
+    "AddItem": "Добавить предмет",
+    "AddFeature": "Добавить особенность",
+    "Edit": "Редактировать",
+    "Delete": "Удалить",
+    "Tabs": {
+      "Description": "Описание",
+      "Attributes": "Характеристики",
+      "Effects": "Эффекты",
+      "Spells": "Заклинания",
+      "Features": "Особенности",
+      "Items": "Предметы",
+      "Weapons": "Оружие",
+      "Armour": "Броня",
+      "Main": "Основное"
+    },
+    "Actor": {
+      "Weapons": "Оружие",
+      "Armour": "Броня",
+      "Items": "Предметы",
+      "Features": "Особенности",
+      "Spells": "Заклинания",
+      "Effects": "Эффекты"
+    },
+    "NPC": {
+      "Health": "Здоровье",
+      "DefendDR": "СЛ защиты",
+      "Description": "Описание",
+      "AddWeapon": "Добавить оружие",
+      "DeadGP": "Золото за труп",
+      "CapturedGP": "Золото за пленного"
+    }
+  },
+  "TYPES": {
+    "Actor": {
+      "character": "Персонаж",
+      "npc": "НПС"
+    },
+    "Item": {
+      "item": "Предмет",
+      "feature": "Особенность",
+      "spell": "Заклинание",
+      "weapon": "Оружие",
+      "armour": "Броня"
+    }
+  },
+  "DOCUMENT": {
+    "Create": "Создать {type}",
+    "New": "Новый {type}",
+    "Update": "Редактировать {type}",
+    "Delete": "Удалить {type}",
+    "Edit": "Редактировать {type}"
+  }
+}

@@ -1,0 +1,21 @@
+[
+  { "id": "shooter",     "class": "deserter",     "name": "Стрелок" },
+  { "id": "greatsword",  "class": "deserter",     "name": "Двуручный мечник" },
+  { "id": "bombardier",  "class": "deserter",     "name": "Бомбардир" },
+
+  { "id": "pistoleer",   "class": "bounty_hunter", "name": "Пистолетчик" },
+  { "id": "trapmaster",  "class": "bounty_hunter", "name": "Мастер ловушек" },
+  { "id": "beasthunter", "class": "bounty_hunter", "name": "Зверолов" },
+
+  { "id": "woodwitch",   "class": "witch",         "name": "Лесная колдовка" },
+  { "id": "herbalist",   "class": "witch",         "name": "Травница" },
+  { "id": "sorceress",   "class": "witch",         "name": "Колдунья" },
+
+  { "id": "wanderer",    "class": "adventurer",    "name": "Странник" },
+  { "id": "thief",       "class": "adventurer",    "name": "Вор" },
+  { "id": "liar",        "class": "adventurer",    "name": "Искусный лжец" },
+
+  { "id": "holywarrior", "class": "practitioner",  "name": "Святой воин" },
+  { "id": "healer",      "class": "practitioner",  "name": "Целитель" },
+  { "id": "cook",        "class": "practitioner",  "name": "Повар" }
+]

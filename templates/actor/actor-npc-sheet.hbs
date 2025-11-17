@@ -1,0 +1,74 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'BPNB_BORG.Item.Name'}}"/></h1>
+      
+      <div class="resources grid grid-4col">
+
+        <div class="resource flex-group-center">
+          <label for="system.health.value" class="resource-label">{{localize "BPNB_BORG.Health"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.health.value" value="{{system.health.value}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="system.health.max" value="{{system.health.max}}" data-dtype="Number"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.armour" class="resource-label rollable" data-roll="{{system.armour}}" data-label="{{localize 'BPNB_BORG.Labels.Armor'}} - {{actor.name}}">{{localize "BPNB_BORG.Labels.Armor"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.armour" value="{{system.armour}}" data-dtype="String"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.morale" class="resource-label rollable" data-roll="2d6" data-label="{{localize 'BPNB_BORG.Labels.Morale'}} - {{actor.name}} - {{localize 'BPNB_BORG.Labels.Morale'}} {{system.morale}}">{{localize "BPNB_BORG.Labels.Morale"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.morale" value="{{system.morale}}" data-dtype="Number"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.attack" class="resource-label rollable" data-roll="{{system.attack}}" data-label="{{localize 'BPNB_BORG.Labels.Damage'}} - {{actor.name}}">{{localize "BPNB_BORG.Labels.Attack"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.attack" value="{{system.attack}}" data-dtype="String"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="resources grid grid-2col">
+        <div class="resource flex-group-center">
+          <label for="system.dead_gp" class="resource-label">{{localize "BPNB_BORG.NPC.DeadGP"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.dead_gp" value="{{system.dead_gp}}" data-dtype="Number"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="system.captured_gp" class="resource-label">{{localize "BPNB_BORG.NPC.CapturedGP"}}</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="system.captured_gp" value="{{system.captured_gp}}" data-dtype="Number"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "BPNB_BORG.Tabs.Description"}}</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography" data-group="primary" data-tab="description">
+      {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+    </div>
+
+  </section>
+</form>

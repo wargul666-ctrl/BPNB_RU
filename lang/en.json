@@ -1,0 +1,67 @@
+{
+  "BPNB_BORG": {
+    "Labels":{
+      "DR": "DR",
+      "ATTACK": "Attack",
+      "VS": "Vs",
+      "Attack_Hit": "Hit",
+      "Attack_Fumble": "Fumble",
+      "Attack_Miss": "Miss",
+      "Attack_Crit": "Critical Hit",
+      "Damage": "Damage",
+      "Armor": "Armor",
+      "Damage_Done": "Damage Done",
+      "Defend": "Defend",
+      "Defend_Got_Hit": "Defense Failed!",
+      "Defend_Success": "Defense Success!",
+      "Defend_Critical_Success": "Critical Success!",
+      "Defend_Critical_Success_Action": "You gain a free attack on the attacker!",
+      "Defend_Fumble": "Fumble!",
+      "Defend_Fumble_Action": "You take double damage and your armor is reduced by one tier until it is repaired."
+    },
+    "RollDialog":{
+      "Roll": "Roll"
+    },
+    "Ability": {
+      "Str": { "long": "Strength", "abbr": "str" },
+      "Agl": { "long": "Agility", "abbr": "agl" },
+      "Prs": { "long": "Presence", "abbr": "prs" },
+      "Tgh": { "long": "Toughness", "abbr": "tgh" }
+    },
+    "SheetLabels": {
+      "Actor": "Bpnb_borg Actor Sheet",
+      "Item": "Bpnb_borg Item Sheet"
+    },
+    "Item": {
+      "Spell": {
+        "SpellLVL": "Level {level} Spells",
+        "AddLVL": "Add LVL {level}",
+        "AddSpell": "Add Spell",
+        "Spells": "Spells"
+      },
+      "Weapon": {
+        "Melee": "Melee",
+        "Ranged": "Ranged"
+      }
+    },
+    "Effect": {
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects"
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "item": "Item",
+      "feature": "Feature",
+      "spell": "Spell"
+    }
+  }
+}
