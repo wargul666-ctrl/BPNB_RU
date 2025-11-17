@@ -1,0 +1,172 @@
+{
+  "melee": [
+    {
+      "id": "fists",
+      "name": "Кулаки",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d2",
+      "price": 0,
+      "special": "Нет."
+    },
+    {
+      "id": "zweihander",
+      "name": "Цвайхандер",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d10",
+      "price": 60,
+      "special": "При попадании 18+ цель разрубается пополам. Неуклюжий: в тесных местах −2 к атаке."
+    },
+    {
+      "id": "messer",
+      "name": "Мессер",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d6",
+      "price": 15,
+      "special": "Мощный удар: первая атака +2 урон; последующие атаки получают −1 до отдыха."
+    },
+    {
+      "id": "hidden-dagger",
+      "name": "Скрытый кинжал",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d4",
+      "price": 20,
+      "special": "Первая атака получает +2 к попаданию."
+    },
+    {
+      "id": "small-dagger",
+      "name": "Малый кинжал",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d4",
+      "price": 10,
+      "special": "Можно пронести туда, где запрещено оружие."
+    },
+    {
+      "id": "club",
+      "name": "Дубина",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d4",
+      "price": 5,
+      "special": "При попадании 16+ цель отключается на d6 ходов."
+    },
+    {
+      "id": "cleaver",
+      "name": "Большой тесак",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d8",
+      "price": 15,
+      "special": "При попадании 16+ цель теряет конечность."
+    },
+    {
+      "id": "sword",
+      "name": "Меч",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d6",
+      "price": 20,
+      "special": "Парирование: +2 к защите в ближнем бою."
+    },
+    {
+      "id": "halberd",
+      "name": "Алебарда",
+      "type": "weapon",
+      "range": "reach",
+      "damage": "d10",
+      "price": 30,
+      "special": "Дальность 10 футов. В тесных местах −3 к попаданию."
+    },
+    {
+      "id": "flail",
+      "name": "Цеп",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d8",
+      "price": 20,
+      "special": "Захват: при 14+ цель захвачена (Сила 12 чтобы вырваться)."
+    },
+    {
+      "id": "whip",
+      "name": "Плётка с шипами",
+      "type": "weapon",
+      "range": "melee",
+      "damage": "d4",
+      "price": 50,
+      "special": "Две атаки за раунд, но затем пропуск хода. В тесных местах −2."
+    }
+  ],
+
+  "ranged": [
+    {
+      "id": "crossbow",
+      "name": "Арбалет",
+      "type": "weapon",
+      "range": "ranged",
+      "damage": "d8",
+      "price": 40,
+      "special": "Перезарядка занимает ход. Нельзя перезарядить в ближнем бою."
+    },
+    {
+      "id": "bow",
+      "name": "Лук",
+      "type": "weapon",
+      "range": "ranged",
+      "damage": "d6",
+      "price": 25,
+      "special": "Требует 1 Силы для использования."
+    }
+  ],
+
+  "firearms": [
+    {
+      "id": "musket",
+      "name": "Мушкет",
+      "type": "weapon",
+      "range": "firearm",
+      "damage": "d10+2",
+      "price": 250,
+      "special": "+1 к попаданию и урону на дистанции; −1 в ближнем бою. Осечки по правилу d8."
+    },
+    {
+      "id": "arquebus",
+      "name": "Аркебуза",
+      "type": "weapon",
+      "range": "firearm",
+      "damage": "d8",
+      "price": 100,
+      "special": "При каждом выстреле бросок d6: 3–4 осечка, 1–2 взрыв (1d4 урона стрелку)."
+    },
+    {
+      "id": "shotgun",
+      "name": "Дробовик",
+      "type": "weapon",
+      "range": "firearm",
+      "damage": "3d6",
+      "price": 200,
+      "special": "Урон делится между 3 целями. Эффективен до 10 футов."
+    },
+    {
+      "id": "pistol",
+      "name": "Пистолет",
+      "type": "weapon",
+      "range": "firearm",
+      "damage": "d6+2",
+      "price": 80,
+      "special": "Можно стрелять каждый ход, если есть несколько пистолетов."
+    },
+    {
+      "id": "bomb",
+      "name": "Бомба",
+      "type": "weapon",
+      "range": "thrown",
+      "damage": "4d6",
+      "price": 20,
+      "special": "Бросок d6: 2 осечка; 1 взрывается в руках (2d6 урона). Радиус 6 футов."
+    }
+  ]
+}

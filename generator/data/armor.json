@@ -1,0 +1,31 @@
+{
+  "armor": [
+    {
+      "id": "light-armor",
+      "name": "Лёгкая броня",
+      "type": "armor",
+      "price": 20,
+      "reduction": "d2",
+      "penalty": 0,
+      "spellFailure": false
+    },
+    {
+      "id": "medium-armor",
+      "name": "Средняя броня",
+      "type": "armor",
+      "price": 100,
+      "reduction": "d4",
+      "penalty": -1,
+      "spellFailure": true
+    },
+    {
+      "id": "heavy-armor",
+      "name": "Тяжёлая броня",
+      "type": "armor",
+      "price": 200,
+      "reduction": "d6",
+      "penalty": -2,
+      "spellFailure": true
+    }
+  ]
+}

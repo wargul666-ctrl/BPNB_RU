@@ -52,11 +52,7 @@ Hooks.once("ready", () => {
   console.log("BPNB Generator | ready");
 });
 
-/* -------------------------
-   Вставляем кнопку в панель Actors (совместимо для v13+)
-   ------------------------- */
 Hooks.on("renderSidebarTab", (app, html) => {
-  // вставляем только в панель актёров (id = "actors")
   if (app?.id !== "actors") return;
 
   try {
@@ -64,18 +60,16 @@ Hooks.on("renderSidebarTab", (app, html) => {
 
     const $html = $(html);
 
-    // Удаляем предыдущую кнопку, если она осталась
     $html.find(".bpnb-create-actor").remove();
 
-    const btn = $(
-      `<button class="bpnb-create-actor control-button" style="margin-right:8px;">
+    const btn = $(`
+      <button class="bpnb-create-actor control-button" style="margin-right:8px;">
          <i class="fas fa-dice-d20"></i> Создать BP&B
-       </button>`
-    );
+       </button>
+    `);
 
     btn.on("click", (ev) => {
       ev.preventDefault();
-      // Открываем приложение генератора (в асинхронной обёртке — чтобы можно было ловить ошибки)
       (async () => {
         try {
           const app = new BPNBGeneratorApp();
@@ -87,7 +81,6 @@ Hooks.on("renderSidebarTab", (app, html) => {
       })();
     });
 
-    // Вставляем в header actions, если есть; иначе в начало вкладки
     const headerActions = $html.find(".directory-header .header-actions");
     if (headerActions.length) headerActions.prepend(btn);
     else $html.find(".directory-header").prepend(btn);
@@ -97,12 +90,9 @@ Hooks.on("renderSidebarTab", (app, html) => {
   }
 });
 
-/* -------------------------
-   Форма / приложение генератора
-   ------------------------- */
+// Форма генератора персонажа
 class BPNBGeneratorApp extends (AppForm || FormApplication) {
   static get defaultOptions() {
-    // mergeObject может быть namespaced, используем foundry.utils.mergeObject если доступно
     const merge = foundry?.utils?.mergeObject ?? (typeof mergeObject !== "undefined" ? mergeObject : (a, b) => Object.assign({}, a, b));
     return merge(super.defaultOptions ?? {}, {
       id: "bpnb-generator",
@@ -114,9 +104,7 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
     });
   }
 
-  /** Загружаем данные (JSON) и сохраняем в this.dataCache / this.object */
   async getData(options) {
-    // Если уже загружено — вернуть
     if (this.dataCache) return this.dataCache;
 
     const base = "systems/bpnb-borg-ru/generator/data/";
@@ -145,9 +133,7 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
       }
     }
 
-    // кешируем
     this.dataCache = out;
-    // также выставим object для удобства
     this.object = out;
     return out;
   }
@@ -156,17 +142,14 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
     super.activateListeners(html);
     this.$html = html;
 
-    // элементы
     this.$class = html.find("#bpnb-class-select");
     this.$subclass = html.find("#bpnb-subclass-select");
     this.$random = html.find("#bpnb-random");
     this.$create = html.find("#bpnb-create");
     this.$preview = html.find("#bpnb-preview");
 
-    // заполнение селектов (если данные уже загружены)
     this._populateClassSelect().catch(err => console.error("BPNB Generator | _populateClassSelect error:", err));
 
-    // события
     if (this.$class && this.$class.length) {
       this.$class.on("change", () => {
         this._populateSubclasses();
@@ -192,9 +175,6 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
     }
   }
 
-  /* -------------------------
-     Заполнить селект классов
-     ------------------------- */
   async _populateClassSelect() {
     const data = await this.getData();
     const classes = data.classes || [];
@@ -203,14 +183,10 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
     classes.forEach(c => {
       this.$class.append(`<option value="${c.id}">${c.name}</option>`);
     });
-    // после заполнения классов — заполнить подклассы для текущего класса
     this._populateSubclasses();
     this._updatePreview();
   }
 
-  /* -------------------------
-     Заполнить селект подклассов в зависимости от выбранного класса
-     ------------------------- */
   _populateSubclasses() {
     if (!this.$class || !this.$subclass) return;
     const classId = this.$class.val();
@@ -233,9 +209,6 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
     this.$preview.text(txt);
   }
 
-  /* -------------------------
-     Случайный выбор класса и подкласса
-     ------------------------- */
   async _doRandom() {
     await this.getData();
     const classes = this.dataCache.classes || [];
@@ -245,7 +218,6 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
       this.$class.val(cls.id).trigger("change");
     }
 
-    // выбрать случайный подкласс
     const subs = (this.dataCache.subclasses || []).filter(s => s.class === cls.id);
     if (subs.length) {
       const s = subs[Math.floor(Math.random() * subs.length)];
@@ -256,9 +228,6 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
     this._updatePreview();
   }
 
-  /* -------------------------
-     Создать персонажа на основе текущего выбора
-     ------------------------- */
   async _createFromSelection() {
     await this.getData();
 
@@ -273,14 +242,10 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
       return;
     }
 
-    // Имя — из names.json
     const name = this._randomName();
-
-    // Черта/фон
     const trait = this._randomItem(this.dataCache.traits || []);
     const bg = this._randomItem(this.dataCache.backgrounds || []);
 
-    // Характеристики — 3d6 каждая
     const roll3d6 = () => Array.from({ length: 3 }, () => Math.floor(Math.random() * 6) + 1).reduce((a, b) => a + b, 0);
     const abilities = {
       str: { value: roll3d6() },
@@ -289,7 +254,6 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
       tgh: { value: roll3d6() }
     };
 
-    // Инвентарь — common + class-specific
     const items = [];
     (this.dataCache.gear?.common || []).forEach(n => {
       items.push({
@@ -298,6 +262,7 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
         system: { description: "", gp: 0, quantity: 1, weight: 0 }
       });
     });
+
     const classWeapons = (this.dataCache.gear?.weapons?.[cls.id]) || [];
     classWeapons.forEach(n => {
       items.push({
@@ -307,7 +272,6 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
       });
     });
 
-    // Подготовка данных актёра
     const actorData = {
       name,
       type: "character",
@@ -346,7 +310,6 @@ class BPNBGeneratorApp extends (AppForm || FormApplication) {
     return pool.length ? pool[Math.floor(Math.random() * pool.length)] : "Безымянный";
   }
 
-  // FormApplication требует реализации _updateObject, но нам не нужно её использовать
   async _updateObject(event, formData) {
     return;
   }
