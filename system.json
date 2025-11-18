@@ -22,7 +22,7 @@
     }
   ],
 
-  "version": "0.8.1",
+  "version": "0.8.2",
 
   "compatibility": {
     "minimum": 13,
@@ -30,10 +30,7 @@
   },
 
   "esmodules": [
-    "module/bpnb_borg-ru.mjs"
-  ],
-
-  "scripts": [
+    "module/bpnb_borg-ru.mjs",
     "module/helpers/templates.mjs",
     "generator/bpnb-generator.mjs"
   ],
@@ -61,7 +58,7 @@
   "socket": false,
 
   "manifest": "https://github.com/wargul666-ctrl/BPNB_RU/releases/latest/download/system.json",
-  "download": "https://github.com/wargul666-ctrl/BPNB_RU/releases/download/v0.8.1/system.zip",
+  "download": "https://github.com/wargul666-ctrl/BPNB_RU/releases/latest/download/system.zip",
 
   "background": "systems/bpnb-borg-ru/assets/screen.png",
   "gridDistance": 5,

@@ -1,3 +1,8 @@
+// systems/bpnb-borg-ru/module/helpers/templates.mjs
+
+/**
+ * Preload and register all Handlebars templates and partials.
+ */
 export async function preloadHandlebarsTemplates() {
   const base = "systems/bpnb-borg-ru/templates";
 
@@ -16,6 +21,15 @@ export async function preloadHandlebarsTemplates() {
     `${base}/chat/defend-roll-card.hbs`
   ];
 
+  // Load templates via Foundry
+  try {
+    await foundry.applications.handlebars.loadTemplates(templates);
+    console.log("BPNB-RU | Основные шаблоны загружены");
+  } catch (e) {
+    console.error("BPNB-RU | Ошибка загрузки шаблонов:", e);
+  }
+
+  // Register partials
   const partials = {
     "bpnb-borg-ru.features": `${base}/actor/parts/actor-features.hbs`,
     "bpnb-borg-ru.weapons": `${base}/actor/parts/actor-weapons.hbs`,
@@ -24,13 +38,6 @@ export async function preloadHandlebarsTemplates() {
     "bpnb-borg-ru.spells": `${base}/actor/parts/actor-spells.hbs`,
     "bpnb-borg-ru.effects": `${base}/actor/parts/actor-effects.hbs`
   };
-
-  try {
-    await foundry.applications.handlebars.loadTemplates(templates);
-    console.log("BPNB-RU | Основные шаблоны загружены");
-  } catch (e) {
-    console.error("BPNB-RU | Ошибка загрузки шаблонов:", e);
-  }
 
   for (const [name, path] of Object.entries(partials)) {
     try {
