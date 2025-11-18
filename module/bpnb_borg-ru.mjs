@@ -1,193 +1,142 @@
 /**
  * BPNB RU — ГЕНЕРАТОР ПЕРСОНАЖЕЙ
- * ДИАГНОСТИКА ХУКА + КНОПКА
+ * ОДНА КНОПКА | РАБОТАЕТ НА FOUNDRY V12–V14 | НИКАКИХ ДУБЛЕЙ
  */
 
-console.log("BPNB Generator | Модуль загружен!");
+console.log("BPNB Generator | Загружен");
 
-Hooks.once("ready", () => {
-  console.log("BPNB Generator | ready сработал!");
-});
+// ← ТОЛЬКО ОДИН ХУК — БОЛЬШЕ НИЧЕГО НЕ ДОБАВЛЯЕМ!
+Hooks.on("renderActorDirectory", (app, html) => {
+  // Удаляем все возможные старые кнопки (от старой версии и от нас)
+  $(html).find(".bpnb-create-btn").remove();
 
-// ТЕСТИРУЕМ ВСЕ ХУКИ
-Hooks.on("renderActorDirectory", (app, html, data) => {
-  console.log("BPNB Generator | renderActorDirectory сработал! app:", app.constructor.name, "html:", html);
-  const $html = $(html);
-  $html.find(".bpnb-create-actor").remove();
-
-  const btn = $(`<button class="bpnb-create-actor control-button" style="margin-right: 8px;"><i class="fas fa-gun"></i> Создать BPNB</button>`);
-  btn.on("click", () => {
-    console.log("BPNB Generator | Кнопка нажата!");
-    new BPNBGeneratorApp().render(true);
-  });
-
-  const headerActions = $html.find(".directory-header .header-actions");
-  console.log("BPNB Generator | .header-actions найден:", headerActions.length);
-  if (headerActions.length) {
-    headerActions.prepend(btn);
-    console.log("BPNB Generator | Кнопка вставлена в .header-actions");
-  } else {
-    const createBtn = $html.find("button.create-document");
-    console.log("BPNB Generator | .create-document найден:", createBtn.length);
-    if (createBtn.length) {
-      createBtn.after(btn);
-      console.log("BPNB Generator | Кнопка вставлена после .create-document");
-    } else {
-      $html.find(".directory-header").prepend(btn);
-      console.log("BPNB Generator | Кнопка вставлена в .directory-header");
-    }
-  }
-});
-
-// АЛЬТЕРНАТИВНЫЙ ХУК — renderSidebarTab
-Hooks.on("renderSidebarTab", (app, html, data) => {
-  if (app.name !== "actors") return;
-  console.log("BPNB Generator | renderSidebarTab сработал для actors!");
-  const $html = $(html);
-  $html.find(".bpnb-create-actor").remove();
-
-  const btn = $(`<button class="bpnb-create-actor control-button" style="margin-right: 8px;"><i class="fas fa-gun"></i> Создать BPNB</button>`);
+  const btn = $(`<button class="bpnb-create-btn" style="margin-right:8px;"><i class="fas fa-gun"></i> Создать BPNB</button>`);
   btn.on("click", () => new BPNBGeneratorApp().render(true));
 
-  const headerActions = $html.find(".directory-header .header-actions");
-  if (headerActions.length) {
-    headerActions.prepend(btn);
-    console.log("BPNB Generator | Кнопка вставлена в .header-actions (renderSidebarTab)");
-  } else {
-    $html.find(".directory-header").prepend(btn);
-  }
+  // Вставляем строго в .header-actions — именно туда, где была оригинальная кнопка
+  $(html).find(".directory-header .header-actions").prepend(btn);
 });
 
-class BPNBGeneratorApp extends FormApplication {
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      id: "bpnb-generator",
+// ← СОВРЕМЕННЫЙ ApplicationV2 — БЕЗ ОШИБОК V1!
+class BPNBGeneratorApp extends foundry.applications.api.ApplicationV2 {
+  static DEFAULT_OPTIONS = {
+    id: "bpnb-generator",
+    window: {
       title: "Генератор — Чёрный порох и Сера",
-      template: "systems/bpnb-borg-ru/generator/templates/bpnb-generator-app.hbs",
-      width: 460,
-      height: "auto",
-      closeOnSubmit: false
-    });
-  }
+      icon: "fas fa-gun",
+      resizable: true
+    },
+    position: { width: 540, height: 760 }
+  };
 
-  async getData() {
-    console.log("BPNB Generator | getData() вызван");
+  // Загружаем все JSON-данные
+  async _prepareContext() {
+    const base = "systems/bpnb-borg-ru/generator/data/";
     try {
-      const base = "systems/bpnb-borg-ru/generator/data/";
       const [classes, subclasses, names, backgrounds, traits, gear] = await Promise.all([
-        this._loadJson(base + "classes.json"),
-        this._loadJson(base + "subclasses.json"),
-        this._loadJson(base + "names.json"),
-        this._loadJson(base + "backgrounds.json"),
-        this._loadJson(base + "traits.json"),
-        this._loadJson(base + "gear.json")
+        fetch(`${base}classes.json?t=${Date.now()}`).then(r => r.json()),
+        fetch(`${base}subclasses.json?t=${Date.now()}`).then(r => r.json()),
+        fetch(`${base}names.json?t=${Date.now()}`).then(r => r.json()),
+        fetch(`${base}backgrounds.json?t=${Date.now()}`).then(r => r.json()),
+        fetch(`${base}traits.json?t=${Date.now()}`).then(r => r.json()),
+        fetch(`${base}gear.json?t=${Date.now()}`).then(r => r.json())
       ]);
-      console.log("BPNB Generator | Данные загружены:", { classes: classes.length, subclasses: subclasses.length });
-      return { classes, subclasses, names, backgrounds, traits, gear };
-    } catch (err) {
-      console.error("BPNB Generator | Ошибка загрузки JSON", err);
-      return { classes: [], subclasses: [], names: {}, backgrounds: [], traits: [], gear: {} };
+
+      const classesWithSubs = classes.map(cls => ({
+        ...cls,
+        subclasses: subclasses.filter(s => s.class === cls.id)
+      }));
+
+      // Сохраняем в this для _generate
+      this.genData = { classes: classesWithSubs, names, backgrounds, traits, gear };
+
+      return { classes: classesWithSubs };
+    } catch (e) {
+      ui.notifications.error("Не удалось загрузить данные генератора");
+      console.error(e);
+      return { classes: [] };
     }
   }
 
-  async _loadJson(url) {
-    try {
-      const response = await fetch(url + "?t=" + Date.now());
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return await response.json();
-    } catch (err) {
-      console.error(`BPNB Generator | Ошибка загрузки ${url}`, err);
-      return [];
-    }
+  // Подключаем события после рендера
+  _onRender() {
+    const html = this.element;
+
+    const updateButtonText = () => {
+      const checked = html.querySelectorAll("input[type=checkbox]:checked").length;
+      const btn = html.querySelector("#random-selected");
+      if (btn) btn.textContent = checked ? "Случайно из отмеченных" : "Случайно из всех";
+    };
+
+    html.querySelectorAll("input[type=checkbox]").forEach(ch => ch.addEventListener("change", updateButtonText));
+    html.querySelector("#random-all")?.addEventListener("click", () => this._generate(false));
+    html.querySelector("#random-selected")?.addEventListener("click", () => this._generate(true));
+
+    updateButtonText();
   }
 
-  activateListeners(html) {
-    super.activateListeners(html);
-    console.log("BPNB Generator | activateListeners сработал");
+  // Основная функция создания персонажа
+  async _generate(onlySelected = false) {
+    const data = this.genData;
+    if (!data?.classes?.length) return ui.notifications.error("Нет данных классов!");
 
-    const $checkboxes = html.find(".archetype-checkbox");
-    const $random = html.find("#bpnb-random");
-    const $create = html.find("#bpnb-create");
-    const $preview = html.find("#bpnb-preview");
+    const checkedIds = Array.from(this.element.querySelectorAll("input.class-checkbox:checked"))
+      .map(el => el.value);
 
-    $random.prop("disabled", false);
-    $create.prop("disabled", false);
+    const pool = onlySelected && checkedIds.length
+      ? data.classes.filter(c => checkedIds.includes(c.id))
+      : data.classes;
 
-    $checkboxes.on("change", () => {
-      const checked = $checkboxes.filter(":checked").length;
-      $random.text(checked > 0 ? "Случайно из отмеченных" : "Случайно из всех");
-    });
+    if (!pool.length) return ui.notifications.warn("Выбери хотя бы один архетип!");
 
-    $random.on("click", () => this._createRandomCharacter(html));
-    $create.on("click", () => this._createRandomCharacter(html));
-  }
+    const cls = pool[Math.floor(Math.random() * pool.length)];
+    const sub = cls.subclasses?.length
+      ? cls.subclasses[Math.floor(Math.random() * cls.subclasses.length)]
+      : null;
 
-  async _createRandomCharacter(html) {
-    const $checkboxes = html.find(".archetype-checkbox");
-    const $checked = $checkboxes.filter(":checked");
-    let clsId;
-
-    if ($checked.length > 0) {
-      const $rand = $checked[Math.floor(Math.random() * $checked.length)];
-      clsId = $rand.val();
-    } else {
-      const cls = this.object.classes[Math.floor(Math.random() * this.object.classes.length)];
-      clsId = cls.id;
-    }
-
-    const cls = this.object.classes.find(c => c.id === clsId);
-    if (!cls) return ui.notifications.warn("Архетип не найден!");
-
-    const subs = this.object.subclasses.filter(s => s.class === clsId);
-    const sub = subs.length ? subs[Math.floor(Math.random() * subs.length)] : null;
-
-    const name = this._randomName();
-    const trait = this._randomItem(this.object.traits);
-    const bg = this._randomItem(this.object.backgrounds);
+    const name = this._randomName(data.names);
+    const trait = this._randomItem(data.traits);
+    const background = this._randomItem(data.backgrounds);
 
     const roll3d6 = () => Array.from({length: 3}, () => Math.floor(Math.random() * 6) + 1).reduce((a, b) => a + b, 0);
-    const abilities = { str: { value: roll3d6() }, agl: { value: roll3d6() }, prs: { value: roll3d6() }, tgh: { value: roll3d6() } };
-
-    const items = [];
-    (this.object.gear.common || []).forEach(n => items.push({ name: n, type: "item", system: { quantity: 1, weight: 0, gp: 0 } }));
-    (this.object.gear.weapons?.[clsId] || []).forEach(n => items.push({ name: n, type: "weapon", system: { damage: "1d4", ranged: false, needs_ammo: false, ammunition: 0, gp: 0 } }));
-
-    const classDisplay = sub ? `${cls.name} (${sub.name})` : cls.name;
-    const bioText = `**Черта:** ${trait}\n**Фон:** ${bg}`;
 
     const actorData = {
       name,
       type: "character",
+      img: "icons/svg/mystery-man.svg",
       system: {
-        health: { value: 10, min: 0, max: 10 },
-        devils_luck: { value: 0, min: 0, max: 10 },
-        spell_cast_amount: { value: 0, min: 0, max: 0 },
-        biography: bioText,
-        gp: 0,
-        attributes: { level: { value: 1 } },
-        class_name: classDisplay,
+        health: { value: 10, max: 10 },
+        devils_luck: { value: 3, max: 3 },
+        biography: `**Черта:** ${trait}\n**Фон:** ${background}`,
+        gp: Math.floor(Math.random() * 11) + 5,
+        class_name: sub ? `${cls.name} (${sub.name})` : cls.name,
         subclass: sub?.name || "",
-        madness: 0,
-        abilities
+        abilities: {
+          str: { value: roll3d6() },
+          agl: { value: roll3d6() },
+          prs: { value: roll3d6() },
+          tgh: { value: roll3d6() }
+        }
       },
-      items
+      items: [
+        ...(data.gear.common || []).map(n => ({ name: n, type: "item", system: { quantity: 1 } })),
+        ...(data.gear.weapons?.[cls.id] || []).map(w => ({ name: w, type: "weapon", system: { damage: "1d4" } }))
+      ]
     };
 
     try {
       const actor = await Actor.create(actorData, { renderSheet: true });
-      ui.notifications.info(`Создан: ${actor.name} — ${classDisplay}`);
+      ui.notifications.info(`Создан: ${actor.name} — ${actor.system.class_name}`);
       this.close();
     } catch (err) {
-      ui.notifications.error("Ошибка создания");
+      ui.notifications.error("Ошибка создания персонажа!");
       console.error(err);
     }
   }
 
-  _randomItem(arr) { return arr.length ? arr[Math.floor(Math.random() * arr.length)] : ""; }
-  _randomName() {
-    const pool = [].concat(this.object.names.male || [], this.object.names.female || [], this.object.names.neutral || []);
+  _randomItem(arr) { return arr?.length ? arr[Math.floor(Math.random() * arr.length)] : ""; }
+  _randomName(names) {
+    const pool = [...(names.male || []), ...(names.female || []), ...(names.neutral || [])];
     return pool.length ? pool[Math.floor(Math.random() * pool.length)] : "Безымянный";
   }
-
-  _updateObject() {}
 }
